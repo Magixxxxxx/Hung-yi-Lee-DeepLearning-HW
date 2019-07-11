@@ -9,6 +9,8 @@ where_are_NaNs = np.isnan(data) #一个numpy的ndarray的对象，特点是不�
 data[where_are_NaNs] = 0 #ndarray的特殊操作
 month_to_data = {}  # Dictionary (key:month , value:data)                                  
 
+print(data)
+
 for month in range(12):
     sample = np.empty(shape = (18 , 480))  #18个属性，20天*24小时，sample(x,y)代表属性x在y时的值
     for day in range(20): 
@@ -49,7 +51,7 @@ for T in range(10001):
         print("T=",T)
         print("Loss:",np.sum((x.dot(w) - y)**2)/ x.shape[0] /2) #最小二乘损失
         print((x.dot(w) - y)**2)
-    gradient = 2 * np.transpose(x).dot(x.dot(w)-y) #损失的导数x*(yh-h)
+    gradient = 2 * x.T.dot(x.dot(w)-y) #损失的导数x*(yh-h)
     adagrad_sum += gradient ** 2
     w = w - learning_rate * gradient / (np.sqrt(adagrad_sum) + 0.0005)
 
